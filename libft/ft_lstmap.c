@@ -1,38 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncolliau <ncolliau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/05 15:29:46 by ncolliau          #+#    #+#             */
-/*   Updated: 2014/12/16 13:54:28 by ncolliau         ###   ########.fr       */
+/*   Created: 2014/12/29 19:13:41 by ncolliau          #+#    #+#             */
+/*   Updated: 2014/12/29 20:02:16 by ncolliau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dst, const void *src, size_t len)
+t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
-	size_t	i;
-	void	*cpy;
+	t_list	*begin_list;
+	t_list	*old;
+	t_list	*new;
 
-	i = 0;
-	if (dst == NULL || src == NULL)
+	if (!lst || !f)
 		return (NULL);
-	if ((cpy = malloc(len * sizeof(*src))) == NULL)
+	new = (t_list *)malloc(sizeof(t_list));
+	if (new == NULL)
 		return (NULL);
-	while (i != len)
+	new = f(lst);
+	begin_list = new;
+	while (lst->next)
 	{
-		*((char *)cpy + i) = *((char *)src + i);
-		i++;
+		old = new;
+		lst = lst->next;
+		new = (t_list *)malloc(sizeof(t_list));
+		if (new == NULL)
+			return (NULL);
+		new = f(lst);
+		old->next = new;
 	}
-	i = 0;
-	while (i != len)
-	{
-		*((char *)dst + i) = *((char *)cpy + i);
-		i++;
-	}
-	free(cpy);
-	return (dst);
+	return (begin_list);
 }

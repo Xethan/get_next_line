@@ -6,7 +6,7 @@
 /*   By: ncolliau <ncolliau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/04 13:57:05 by ncolliau          #+#    #+#             */
-/*   Updated: 2014/11/22 10:58:57 by ncolliau         ###   ########.fr       */
+/*   Updated: 2015/01/04 15:56:11 by ncolliau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,13 @@ int					ft_isdigit(int c);
 int					ft_isprint(int c);
 int					ft_isspace(int c);
 char				*ft_itoa(int n);
+size_t				ft_longlen(long long nbr);
 void				ft_lstadd(t_list **alst, t_list *new);
+void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
+void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
+void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
+size_t				ft_lstlen(t_list *p_list);
+t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 t_list				*ft_lstnew(void const *content, size_t content_size);
 void				*ft_memalloc(size_t size);
 void				*ft_memccpy(void *dst, const void *src, int c, size_t n);
@@ -43,8 +49,10 @@ void				*ft_memcpy(void *dst, const void *src, size_t n);
 void				ft_memdel(void **ap);
 void				*ft_memmove(void *dst, const void *src, size_t len);
 void				*ft_memset(void *b, int c, size_t len);
+size_t				ft_nbrlen(int n);
 void				ft_putchar(char c);
 void				ft_putchar_fd(char c, int fd);
+void				ft_putlonglong(long long nbr);
 void				ft_putendl(char const *s);
 void				ft_putendl_fd(char const *s, int fd);
 void				ft_putnbr(int nbr);
@@ -77,6 +85,7 @@ char				**ft_strsplit(char const *s, char c);
 char				*ft_strstr(const char *s1, const char *s2);
 char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strtrim(char const *s);
+size_t				ft_tabstrlen(char **tabstr);
 int					ft_tolower(int c);
 int					ft_toupper(int c);
 
